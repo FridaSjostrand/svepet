@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Svepet – Min smakprofil</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <a class="logo" href="kvallar.html">Svepet</a>
+      <button class="btn btn-ghost" id="logout-btn">Logga ut</button>
+    </div>
+
+    <a href="kvallar.html" style="font-size: 0.85rem;">&larr; Alla kvällar</a>
+
+    <div style="margin: 14px 0 24px;">
+      <h2>Min smakprofil</h2>
+      <p class="meta">Baserat på dina egna betyg — inte gruppens snitt.</p>
+    </div>
+
+    <div id="smakprofil-root">
+      <div class="empty-state">Laddar...</div>
+    </div>
+  </div>
+
+  <script type="module" src="js/smakprofil.js"></script>
+</body>
+</html>

@@ -236,6 +236,21 @@ textarea {
   gap: 12px;
 }
 
+.wine-head-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.rating-summary {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  white-space: nowrap;
+}
+
 .wine-card .wine-image {
   display: block;
   width: 100%;
@@ -301,6 +316,54 @@ textarea {
   margin: 4px 0 0;
   font-size: 0.85rem;
   color: var(--color-text-soft);
+}
+
+.betyg-sektion {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.betyg-sektion h4 {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-soft);
+  margin: 0 0 8px;
+}
+
+.betyg-sektion h4:not(:first-child) {
+  margin-top: 16px;
+}
+
+.betyg-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.betyg-slider-row input[type='range'] {
+  flex: 1;
+  accent-color: var(--color-primary);
+  padding: 0;
+}
+
+.betyg-slider-value {
+  font-weight: 600;
+  font-size: 0.9rem;
+  min-width: 56px;
+  text-align: right;
+  color: var(--color-primary-dark);
+}
+
+.betyg-form textarea {
+  margin-top: 12px;
+}
+
+.betyg-form button {
+  margin-top: 12px;
 }
 
 .empty-state {

@@ -110,11 +110,25 @@ async function loadViner() {
     return;
   }
 
+  const vinIds = data.map((vin) => vin.id);
+  const { data: betygData } = await supabase
+    .from('betyg')
+    .select('*, medlemmar (namn)')
+    .in('vin_id', vinIds);
+
+  const betygPerVin = new Map();
+  for (const b of betygData ?? []) {
+    if (!betygPerVin.has(b.vin_id)) {
+      betygPerVin.set(b.vin_id, []);
+    }
+    betygPerVin.get(b.vin_id).push(b);
+  }
+
   const steg = grupperaEfterProvningsordning(data);
   steg.forEach((s, index) => {
     listEl.appendChild(renderStegHeader(s, index + 1));
     for (const vin of s.viner) {
-      listEl.appendChild(renderVinCard(vin));
+      listEl.appendChild(renderVinCard(vin, betygPerVin.get(vin.id) ?? []));
     }
   });
 }
@@ -144,7 +158,7 @@ function renderStegHeader(steg, stegnummer) {
   return wrap;
 }
 
-function renderVinCard(vin) {
+function renderVinCard(vin, betygLista) {
   const card = document.createElement('div');
   card.className = 'card wine-card';
 
@@ -167,8 +181,13 @@ function renderVinCard(vin) {
   pill.className = 'pill';
   pill.textContent = vin.kategori;
 
+  const headRight = document.createElement('div');
+  headRight.className = 'wine-head-right';
+  headRight.appendChild(pill);
+  headRight.appendChild(renderBetygSammanfattning(betygLista));
+
   head.appendChild(titleWrap);
-  head.appendChild(pill);
+  head.appendChild(headRight);
   card.appendChild(head);
 
   if (vin.bild_url && isSafeHttpUrl(vin.bild_url)) {
@@ -218,7 +237,101 @@ function renderVinCard(vin) {
   footer.textContent = `Tillagd av ${vin.medlemmar?.namn ?? 'okänd'}`;
   card.appendChild(footer);
 
+  card.appendChild(renderBetygSektion(vin, betygLista));
+
   return card;
+}
+
+function renderBetygSektion(vin, betygLista) {
+  const wrap = document.createElement('div');
+  wrap.className = 'betyg-sektion';
+
+  const mittBetyg = betygLista.find((b) => b.medlem_id === user.id);
+
+  const rubrik = document.createElement('h4');
+  rubrik.textContent = 'Ditt betyg';
+  wrap.appendChild(rubrik);
+
+  const form = document.createElement('form');
+  form.className = 'betyg-form';
+
+  const sliderRow = document.createElement('div');
+  sliderRow.className = 'betyg-slider-row';
+
+  const slider = document.createElement('input');
+  slider.type = 'range';
+  slider.min = '1';
+  slider.max = '5';
+  slider.step = '0.5';
+  slider.value = mittBetyg ? mittBetyg.poang : '3';
+
+  const sliderValue = document.createElement('span');
+  sliderValue.className = 'betyg-slider-value';
+  sliderValue.textContent = `${Number(slider.value).toFixed(1)} / 5`;
+
+  slider.addEventListener('input', () => {
+    sliderValue.textContent = `${Number(slider.value).toFixed(1)} / 5`;
+  });
+
+  sliderRow.appendChild(slider);
+  sliderRow.appendChild(sliderValue);
+  form.appendChild(sliderRow);
+
+  const kommentar = document.createElement('textarea');
+  kommentar.placeholder = 'Vad tyckte du om vinet?';
+  kommentar.value = mittBetyg?.kommentar ?? '';
+  form.appendChild(kommentar);
+
+  const errorEl = document.createElement('div');
+  errorEl.className = 'error-text';
+  form.appendChild(errorEl);
+
+  const saveBtn = document.createElement('button');
+  saveBtn.type = 'submit';
+  saveBtn.className = 'btn btn-primary';
+  saveBtn.textContent = mittBetyg ? 'Uppdatera betyg' : 'Spara betyg';
+  form.appendChild(saveBtn);
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    errorEl.textContent = '';
+
+    const { error } = await supabase.from('betyg').upsert(
+      {
+        vin_id: vin.id,
+        medlem_id: user.id,
+        poang: Number(slider.value),
+        kommentar: kommentar.value.trim() || null,
+      },
+      { onConflict: 'vin_id,medlem_id' }
+    );
+
+    if (error) {
+      errorEl.textContent = 'Kunde inte spara betyget. Försök igen.';
+      return;
+    }
+
+    await loadViner();
+  });
+
+  wrap.appendChild(form);
+
+  return wrap;
+}
+
+function renderBetygSammanfattning(betygLista) {
+  const el = document.createElement('div');
+  el.className = 'rating-summary';
+
+  if (betygLista.length === 0) {
+    el.textContent = 'Inga betyg än';
+    return el;
+  }
+
+  const snitt = betygLista.reduce((sum, b) => sum + Number(b.poang), 0) / betygLista.length;
+  const rostText = betygLista.length === 1 ? 'röst' : 'röster';
+  el.textContent = `★ ${snitt.toFixed(1)} (${betygLista.length} ${rostText})`;
+  return el;
 }
 
 function isSafeHttpUrl(value) {

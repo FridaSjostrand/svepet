@@ -134,16 +134,17 @@ create policy "betyg_insert_egen"
   on public.betyg for insert
   with check (medlem_id = auth.uid());
 
--- Man kan bara ändra sitt eget betyg
-create policy "betyg_update_egen"
+-- Alla 8 kan ändra vilket betyg som helst (samma öppna redigeringsmodell
+-- som kvällar/viner — t.ex. för att rätta till ett fel åt någon annan)
+create policy "betyg_update_inloggad"
   on public.betyg for update
-  using (medlem_id = auth.uid())
-  with check (medlem_id = auth.uid());
+  using (auth.uid() is not null)
+  with check (auth.uid() is not null);
 
--- Man kan bara ta bort sitt eget betyg
-create policy "betyg_delete_egen"
+-- Alla 8 kan ta bort vilket betyg som helst
+create policy "betyg_delete_inloggad"
   on public.betyg for delete
-  using (medlem_id = auth.uid());
+  using (auth.uid() is not null);
 
 
 -- ----------------------------------------------------------------

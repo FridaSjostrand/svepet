@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Svepet – Kväll</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <a class="logo" href="kvallar.html">Svepet</a>
+      <button class="btn btn-ghost" id="logout-btn">Logga ut</button>
+    </div>
+
+    <a href="kvallar.html" style="font-size: 0.85rem;">&larr; Alla kvällar</a>
+
+    <div class="card" style="margin-top: 14px;">
+      <h2 id="kvall-tema">Laddar...</h2>
+      <div class="meta" id="kvall-datum"></div>
+      <p id="kvall-beskrivning"></p>
+    </div>
+
+    <div class="toggle-form-wrap" style="margin-top: 24px;">
+      <button class="btn btn-primary" id="toggle-new-vin">+ Lägg till vin</button>
+
+      <div class="card" id="new-vin-card" style="display: none; margin-top: 16px;">
+        <h3>Nytt vin</h3>
+        <form id="new-vin-form">
+          <label for="namn">Namn</label>
+          <input type="text" id="namn" required />
+
+          <div class="field-row">
+            <div>
+              <label for="producent">Producent</label>
+              <input type="text" id="producent" />
+            </div>
+            <div>
+              <label for="argang">Årgång</label>
+              <input type="number" id="argang" min="1900" max="2100" placeholder="t.ex. 2021" />
+            </div>
+          </div>
+
+          <label for="kategori">Kategori</label>
+          <select id="kategori" required>
+            <option value="" disabled selected>Välj kategori</option>
+            <option value="mousserande">Mousserande</option>
+            <option value="vitt lätt">Vitt lätt</option>
+            <option value="vitt fylligt">Vitt fylligt</option>
+            <option value="rosé">Rosé</option>
+            <option value="rött lätt">Rött lätt</option>
+            <option value="rött fylligt">Rött fylligt</option>
+            <option value="sött">Sött</option>
+            <option value="starkvin">Starkvin</option>
+          </select>
+
+          <div class="field-row">
+            <div>
+              <label for="druva">Druva</label>
+              <input type="text" id="druva" />
+            </div>
+            <div>
+              <label for="lagring">Lagring</label>
+              <select id="lagring">
+                <option value="">Ej valt</option>
+                <option value="stål">Stål</option>
+                <option value="delvis fat">Delvis fat</option>
+                <option value="fatlagrat">Fatlagrat</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div>
+              <label for="land">Land</label>
+              <input type="text" id="land" />
+            </div>
+            <div>
+              <label for="region">Region</label>
+              <input type="text" id="region" />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div>
+              <label for="pris">Pris (kr)</label>
+              <input type="number" id="pris" min="0" step="0.01" />
+            </div>
+            <div>
+              <label for="alkohol_procent">Alkohol %</label>
+              <input type="number" id="alkohol_procent" min="0" max="100" step="0.1" />
+            </div>
+          </div>
+
+          <label for="volym_ml">Volym (ml)</label>
+          <input type="number" id="volym_ml" min="0" step="1" placeholder="t.ex. 750" />
+
+          <label for="bild_url">Bildlänk (valfritt)</label>
+          <input type="url" id="bild_url" placeholder="https://..." />
+
+          <label for="systembolaget_lank">Länk till Systembolaget</label>
+          <input type="url" id="systembolaget_lank" placeholder="https://www.systembolaget.se/..." />
+
+          <label for="vin-beskrivning">Beskrivning</label>
+          <textarea id="vin-beskrivning" placeholder="Egna anteckningar om vinet"></textarea>
+
+          <div class="error-text" id="new-vin-error"></div>
+
+          <div style="margin-top: 14px;">
+            <button type="submit" class="btn btn-primary">Spara vin</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2>Viner</h2>
+    </div>
+
+    <div class="list" id="vin-list">
+      <div class="empty-state">Laddar...</div>
+    </div>
+  </div>
+
+  <script type="module" src="js/kvall.js"></script>
+</body>
+</html>

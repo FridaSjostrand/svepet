@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Svepet – Kvällar</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <span class="logo">Svepet</span>
+      <button class="btn btn-ghost" id="logout-btn">Logga ut</button>
+    </div>
+
+    <div class="toggle-form-wrap">
+      <button class="btn btn-primary" id="toggle-new-kvall">+ Ny kväll</button>
+
+      <div class="card" id="new-kvall-card" style="display: none; margin-top: 16px;">
+        <h3>Ny kväll</h3>
+        <form id="new-kvall-form">
+          <label for="tema">Tema</label>
+          <input type="text" id="tema" required placeholder="T.ex. Vin från Sydafrika" />
+
+          <label for="datum">Datum</label>
+          <input type="date" id="datum" required />
+
+          <label for="beskrivning">Beskrivning (valfritt)</label>
+          <textarea id="beskrivning" placeholder="Regler, budget, plats..."></textarea>
+
+          <div class="error-text" id="new-kvall-error"></div>
+
+          <div style="margin-top: 14px;">
+            <button type="submit" class="btn btn-primary">Spara kväll</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2>Kvällar</h2>
+    </div>
+
+    <div class="list" id="kvall-list">
+      <div class="empty-state">Laddar...</div>
+    </div>
+  </div>
+
+  <script type="module" src="js/kvallar.js"></script>
+</body>
+</html>

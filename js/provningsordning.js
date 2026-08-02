@@ -6,45 +6,57 @@ export const PROVNINGSORDNING = [
     kategori: 'mousserande',
     label: 'Mousserande',
     motivering: 'Bubbel öppnar smaklökarna och känns fräscht som start, utan att dominera det som kommer sen.',
+    pillClass: 'pill-guld',
   },
   {
     kategori: 'vitt lätt',
     label: 'Vitt lätt',
     motivering: 'Lätta, syrliga vita viner skulle drunkna om de kom efter något kraftigare.',
+    pillClass: 'pill-vitt-ljust',
   },
   {
     kategori: 'vitt fylligt',
     label: 'Vitt fylligt',
     motivering: 'Mer kropp och smak än de lätta vita — ett naturligt steg uppåt.',
+    pillClass: 'pill-vitt-fylligt',
   },
   {
     kategori: 'rosé',
     label: 'Rosé',
     motivering: 'Ligger mitt emellan vitt och rött i fyllighet, en bra brygga in i de röda vinerna.',
+    pillClass: 'pill-rose',
   },
   {
     kategori: 'rött lätt',
     label: 'Rött lätt',
     motivering: 'Mindre tanniner och fortfarande fräscht efter rosén.',
+    pillClass: 'pill-rott-ljust',
   },
   {
     kategori: 'rött fylligt',
     label: 'Rött fylligt',
     motivering: 'Mer tanniner och kropp — de tar över smaklökarna om de kommer för tidigt.',
+    pillClass: 'pill-rott-fylligt',
   },
   {
     kategori: 'sött',
     label: 'Sött',
     motivering: 'Sötman skulle överrösta allt som kom efter, så söta viner avslutar provningen.',
+    pillClass: 'pill-amber',
   },
   {
     kategori: 'starkvin',
     label: 'Starkvin',
     motivering: 'Högst alkoholhalt och mest smak — det allra sista, som ett digestif.',
+    pillClass: 'pill-amber-morkt',
   },
 ];
 
 const ORDER_INDEX = new Map(PROVNINGSORDNING.map((steg, i) => [steg.kategori, i]));
+
+export function pillClassFor(kategori) {
+  return PROVNINGSORDNING.find((s) => s.kategori === kategori)?.pillClass ?? 'pill';
+}
 
 // Grupperar en lista viner i provningsordning. Returnerar bara de steg
 // som faktiskt har viner den här kvällen.

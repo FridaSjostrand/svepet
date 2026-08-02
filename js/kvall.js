@@ -1,6 +1,6 @@
 import { supabase } from './supabaseClient.js';
 import { requireSession, wireLogoutButton } from './auth.js';
-import { grupperaEfterProvningsordning } from './provningsordning.js';
+import { grupperaEfterProvningsordning, pillClassFor } from './provningsordning.js';
 
 const params = new URLSearchParams(window.location.search);
 const kvallId = params.get('id');
@@ -178,7 +178,7 @@ function renderVinCard(vin, betygLista) {
   }
 
   const pill = document.createElement('span');
-  pill.className = 'pill';
+  pill.className = `pill ${pillClassFor(vin.kategori)}`;
   pill.textContent = vin.kategori;
 
   const headRight = document.createElement('div');

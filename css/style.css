@@ -268,6 +268,41 @@ textarea {
   color: var(--color-text-soft);
 }
 
+.tasting-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 30px 0 14px;
+}
+
+.tasting-step:first-of-type {
+  margin-top: 0;
+}
+
+.tasting-step .step-number {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-gold));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.tasting-step .step-text h3 {
+  font-size: 1.05rem;
+}
+
+.tasting-step .step-text p {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: var(--color-text-soft);
+}
+
 .empty-state {
   text-align: center;
   color: var(--color-text-soft);

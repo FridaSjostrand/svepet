@@ -1,5 +1,6 @@
 import { supabase } from './supabaseClient.js';
 import { requireSession, wireLogoutButton } from './auth.js';
+import { grupperaEfterProvningsordning } from './provningsordning.js';
 
 const params = new URLSearchParams(window.location.search);
 const kvallId = params.get('id');
@@ -109,9 +110,38 @@ async function loadViner() {
     return;
   }
 
-  for (const vin of data) {
-    listEl.appendChild(renderVinCard(vin));
-  }
+  const steg = grupperaEfterProvningsordning(data);
+  steg.forEach((s, index) => {
+    listEl.appendChild(renderStegHeader(s, index + 1));
+    for (const vin of s.viner) {
+      listEl.appendChild(renderVinCard(vin));
+    }
+  });
+}
+
+function renderStegHeader(steg, stegnummer) {
+  const wrap = document.createElement('div');
+  wrap.className = 'tasting-step';
+
+  const badge = document.createElement('div');
+  badge.className = 'step-number';
+  badge.textContent = stegnummer;
+
+  const text = document.createElement('div');
+  text.className = 'step-text';
+
+  const title = document.createElement('h3');
+  title.textContent = steg.label;
+
+  const motivering = document.createElement('p');
+  motivering.textContent = steg.motivering;
+
+  text.appendChild(title);
+  text.appendChild(motivering);
+  wrap.appendChild(badge);
+  wrap.appendChild(text);
+
+  return wrap;
 }
 
 function renderVinCard(vin) {

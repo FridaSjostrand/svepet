@@ -25,8 +25,9 @@ med Claude Code, kopplad till Supabase (databas + inloggning) och Netlify
 - **Håll det enkelt och gratis.** Bara gratisnivåer (Supabase, Netlify).
   Föreslå inga betaltjänster. Välj det enklare sättet framför det
   avancerade.
-- **Spara ofta.** Påminn om att committa till GitHub efter varje
-  fungerande steg, så inget går förlorat och man alltid kan gå tillbaka.
+- **Spara ofta.** Committa och pusha till GitHub automatiskt efter varje
+  fungerande, testat steg — vänta inte på att bli ombedd. Netlify bygger
+  om automatiskt vid varje push.
 
 ## Om projektet
 

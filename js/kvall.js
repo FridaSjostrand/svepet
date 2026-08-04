@@ -162,6 +162,25 @@ function renderVinCard(vin, betygLista) {
   const card = document.createElement('div');
   card.className = 'card wine-card';
 
+  const harBild = vin.bild_url && isSafeHttpUrl(vin.bild_url);
+
+  if (harBild) {
+    const media = document.createElement('div');
+    media.className = 'wine-media';
+
+    const img = document.createElement('img');
+    img.className = 'wine-image';
+    img.src = vin.bild_url;
+    img.alt = vin.namn;
+
+    media.appendChild(img);
+    media.appendChild(renderKategoriPill(vin.kategori, { flytande: true }));
+    card.appendChild(media);
+  }
+
+  const body = document.createElement('div');
+  body.className = 'wine-body';
+
   const head = document.createElement('div');
   head.className = 'wine-head';
 
@@ -177,26 +196,16 @@ function renderVinCard(vin, betygLista) {
     titleWrap.appendChild(producent);
   }
 
-  const pill = document.createElement('span');
-  pill.className = `pill ${pillClassFor(vin.kategori)}`;
-  pill.textContent = vin.kategori;
-
   const headRight = document.createElement('div');
   headRight.className = 'wine-head-right';
-  headRight.appendChild(pill);
+  if (!harBild) {
+    headRight.appendChild(renderKategoriPill(vin.kategori, { flytande: false }));
+  }
   headRight.appendChild(renderBetygSammanfattning(betygLista));
 
   head.appendChild(titleWrap);
   head.appendChild(headRight);
-  card.appendChild(head);
-
-  if (vin.bild_url && isSafeHttpUrl(vin.bild_url)) {
-    const img = document.createElement('img');
-    img.className = 'wine-image';
-    img.src = vin.bild_url;
-    img.alt = vin.namn;
-    card.appendChild(img);
-  }
+  body.appendChild(head);
 
   const facts = document.createElement('div');
   facts.className = 'wine-facts';
@@ -214,13 +223,13 @@ function renderVinCard(vin, betygLista) {
     span.textContent = fact;
     facts.appendChild(span);
   }
-  card.appendChild(facts);
+  body.appendChild(facts);
 
   if (vin.beskrivning) {
     const desc = document.createElement('p');
     desc.className = 'wine-desc';
     desc.textContent = vin.beskrivning;
-    card.appendChild(desc);
+    body.appendChild(desc);
   }
 
   if (vin.systembolaget_lank && isSafeHttpUrl(vin.systembolaget_lank)) {
@@ -229,17 +238,40 @@ function renderVinCard(vin, betygLista) {
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
     link.textContent = 'Visa på Systembolaget';
-    card.appendChild(link);
+    body.appendChild(link);
   }
 
   const footer = document.createElement('div');
   footer.className = 'wine-footer';
   footer.textContent = `Tillagd av ${vin.medlemmar?.namn ?? 'okänd'}`;
-  card.appendChild(footer);
+  body.appendChild(footer);
 
-  card.appendChild(renderBetygSektion(vin, betygLista));
+  body.appendChild(renderBetygSektion(vin, betygLista));
+  card.appendChild(body);
 
   return card;
+}
+
+function renderKategoriPill(kategori, { flytande }) {
+  if (flytande) {
+    const pill = document.createElement('span');
+    pill.className = 'pill pill-onimage';
+
+    const dot = document.createElement('span');
+    dot.className = `pill-dot ${pillClassFor(kategori)}`;
+    pill.appendChild(dot);
+
+    const text = document.createElement('span');
+    text.textContent = kategori;
+    pill.appendChild(text);
+
+    return pill;
+  }
+
+  const pill = document.createElement('span');
+  pill.className = `pill ${pillClassFor(kategori)}`;
+  pill.textContent = kategori;
+  return pill;
 }
 
 function renderBetygSektion(vin, betygLista) {

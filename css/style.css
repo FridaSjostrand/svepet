@@ -12,7 +12,8 @@
   --color-text: #4a2a3a;
   --color-text-soft: #8c6478;
   --color-border: #f0d3de;
-  --shadow-soft: 0 10px 30px rgba(190, 120, 140, 0.22);
+  --shadow-color: rgba(190, 120, 140, 0.22);
+  --shadow-soft: 0 10px 30px var(--shadow-color);
   --radius-lg: 16px;
   --radius-md: 14px;
   --radius-sm: 10px;
@@ -58,7 +59,7 @@ a {
 .page {
   max-width: 720px;
   margin: 0 auto;
-  padding: 32px 20px 80px;
+  padding: 40px 20px 80px;
 }
 
 .center-page {
@@ -111,9 +112,13 @@ a {
 
 .topbar .logo {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-primary-dark);
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-style: italic;
+  background: linear-gradient(90deg, var(--color-primary-dark), var(--color-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   text-decoration: none;
 }
 
@@ -122,6 +127,7 @@ a {
   align-items: center;
   justify-content: center;
   gap: 6px;
+  min-height: 44px;
   border: none;
   border-radius: 999px;
   padding: 11px 22px;
@@ -129,7 +135,21 @@ a {
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
+  box-shadow: 0 4px 10px var(--shadow-color);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.back-link {
+  display: inline-block;
+  padding: 12px 4px;
+  font-size: 0.85rem;
+  color: var(--color-text-soft);
+  text-decoration: none;
 }
 
 .btn-primary {
@@ -167,6 +187,7 @@ label:first-child {
 
 input, select, textarea {
   width: 100%;
+  min-height: 44px;
   padding: 11px 14px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -204,13 +225,13 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 32px 0 14px;
+  margin: 40px 0 16px;
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 .item-card {
@@ -250,6 +271,26 @@ textarea {
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+  box-shadow: 0 3px 8px var(--shadow-color);
+}
+
+.pill-onimage {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  color: var(--color-text);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.14);
+}
+
+.pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .pill-guld { background: var(--kat-guld-bg); color: var(--color-text); }
@@ -260,6 +301,21 @@ textarea {
 .pill-rott-fylligt { background: var(--kat-rott-fylligt-bg); color: #fff; }
 .pill-amber { background: var(--kat-amber-bg); color: var(--color-text); }
 .pill-amber-morkt { background: var(--kat-amber-morkt-bg); color: #fff; }
+
+.wine-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.wine-body {
+  padding: 20px;
+}
+
+.wine-media {
+  position: relative;
+  background: var(--color-card-soft);
+  padding: 20px;
+}
 
 .wine-card .wine-head {
   display: flex;
@@ -287,13 +343,8 @@ textarea {
 .wine-card .wine-image {
   display: block;
   width: 100%;
-  height: 220px;
+  height: 200px;
   object-fit: contain;
-  background: #ffffff;
-  padding: 16px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  margin: 12px 0;
 }
 
 .wine-card .wine-facts {
@@ -457,4 +508,38 @@ textarea {
 
 .toggle-form-wrap {
   margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 20px 16px 60px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .field-row {
+    grid-template-columns: 1fr;
+    gap: 14px 0;
+  }
+
+  .topbar {
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+
+  .topbar-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .bar-row {
+    grid-template-columns: 1fr 40px;
+  }
+
+  .bar-row .bar-label {
+    grid-column: 1 / -1;
+    white-space: normal;
+  }
 }

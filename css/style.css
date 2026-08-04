@@ -119,21 +119,9 @@ a {
 
 .topbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: 24px;
-}
-
-.topbar .logo {
-  font-family: var(--font-heading);
-  font-size: 1.6rem;
-  font-weight: 600;
-  font-style: italic;
-  background: linear-gradient(90deg, var(--color-primary-dark), var(--color-gold));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-decoration: none;
 }
 
 .btn {

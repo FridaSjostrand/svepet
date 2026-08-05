@@ -78,27 +78,12 @@ a {
   margin-bottom: 28px;
 }
 
-.masthead .eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-primary-dark);
-  opacity: 0.8;
-  margin-bottom: 8px;
-}
-
-.masthead .club-name {
-  font-family: var(--font-heading);
-  font-size: clamp(2.8rem, 9vw, 4.2rem);
-  font-weight: 600;
-  font-style: italic;
-  background: linear-gradient(90deg, var(--color-primary-dark) 0%, var(--color-gold-rich) 38%, var(--color-gold-rich) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin: 0;
+.club-logo {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  margin: 0 auto;
 }
 
 .masthead .tagline {
@@ -568,6 +553,10 @@ textarea {
 @media (max-width: 600px) {
   .page {
     padding: 20px 16px 60px;
+  }
+
+  .club-logo {
+    max-width: 150px;
   }
 
   .card {

@@ -105,10 +105,10 @@ create policy "viner_update_inloggad"
   using (auth.uid() is not null)
   with check (auth.uid() is not null);
 
--- Bara den som lade till vinet kan ta bort det
-create policy "viner_delete_egen"
+-- Alla 8 kan ta bort vilket vin som helst (samma öppna modell som update)
+create policy "viner_delete_inloggad"
   on public.viner for delete
-  using (tillagd_av = auth.uid());
+  using (auth.uid() is not null);
 
 
 -- ----------------------------------------------------------------

@@ -9,10 +9,12 @@
 </head>
 <body>
   <div class="page">
-    <div class="masthead">
+    <div class="hero">
       <img class="club-logo" src="images/svepet-utan-platta-1024.png" alt="Svepet" />
       <p class="tagline">Gamla vänner, nya vänner, och ett gemensamt beslut att livet blir bättre med ett glas vin, gott sällskap och lite skvaller.</p>
+    </div>
 
+    <div class="intro-row">
       <div class="masthead-rules">
         <div class="masthead-rules-title">Klubbens regler</div>
         <ul>
@@ -23,19 +25,18 @@
           <li>Lägg till information om vinet</li>
         </ul>
       </div>
-    </div>
 
-    <div class="topbar">
-      <div class="topbar-actions">
-        <a class="btn btn-ghost" href="smakprofil.html">Min smakprofil</a>
-        <button class="btn btn-ghost" id="logout-btn">Logga ut</button>
+      <div class="intro-actions">
+        <div class="topbar-actions">
+          <a class="btn btn-ghost" href="smakprofil.html">Min smakprofil</a>
+          <button class="btn btn-ghost" id="logout-btn">Logga ut</button>
+        </div>
+        <button class="btn btn-primary" id="toggle-new-kvall">+ Ny kväll</button>
       </div>
     </div>
 
     <div class="toggle-form-wrap">
-      <button class="btn btn-primary" id="toggle-new-kvall">+ Ny kväll</button>
-
-      <div class="card" id="new-kvall-card" style="display: none; margin-top: 16px;">
+      <div class="card" id="new-kvall-card" style="display: none;">
         <h3>Ny kväll</h3>
         <form id="new-kvall-form">
           <label for="tema">Tema</label>

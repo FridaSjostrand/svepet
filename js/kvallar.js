@@ -40,6 +40,7 @@ document.getElementById('new-kvall-form').addEventListener('submit', async (even
 
 async function loadKvallar() {
   const listEl = document.getElementById('kvall-list');
+  const countEl = document.getElementById('kvall-count');
   const { data, error } = await supabase
     .from('kvallar')
     .select('*')
@@ -49,6 +50,7 @@ async function loadKvallar() {
 
   if (error) {
     listEl.innerHTML = '';
+    countEl.textContent = '';
     const p = document.createElement('div');
     p.className = 'empty-state';
     p.textContent = 'Kunde inte hämta kvällar just nu.';
@@ -57,12 +59,15 @@ async function loadKvallar() {
   }
 
   if (!data || data.length === 0) {
+    countEl.textContent = '';
     const p = document.createElement('div');
     p.className = 'empty-state';
     p.textContent = 'Inga kvällar än — lägg till den första!';
     listEl.appendChild(p);
     return;
   }
+
+  countEl.textContent = data.length === 1 ? '1 kväll' : `${data.length} kvällar`;
 
   for (const kvall of data) {
     const link = document.createElement('a');

@@ -44,10 +44,13 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   color: var(--color-text);
-  background:
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke='%23b8722a' stroke-opacity='0.08' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M20 120 Q40 80 30 40 Q26 20 42 12'/%3E%3Ccircle cx='46' cy='20' r='4' fill='%23b8722a' fill-opacity='0.08' stroke='none'/%3E%3Ccircle cx='54' cy='14' r='4' fill='%23b8722a' fill-opacity='0.08' stroke='none'/%3E%3Ccircle cx='52' cy='26' r='4' fill='%23b8722a' fill-opacity='0.08' stroke='none'/%3E%3Cpath d='M26 70 Q10 64 6 50'/%3E%3Cpath d='M32 95 Q52 98 58 112'/%3E%3C/g%3E%3C/svg%3E"),
     radial-gradient(ellipse 60% 40% at 10% 0%, rgba(242, 166, 192, 0.35) 0%, transparent 60%),
     radial-gradient(ellipse 50% 40% at 100% 10%, rgba(234, 196, 136, 0.4) 0%, transparent 60%),
     linear-gradient(135deg, var(--color-bg-start), var(--color-bg-end));
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+  background-size: 140px 140px, auto, auto, auto;
 }
 
 h1, h2, h3 {
@@ -148,6 +151,16 @@ a {
   flex-direction: column;
   align-items: flex-end;
   gap: 14px;
+}
+
+/* Gemensam "toolbar"-yta för knappgrupper, så de läses som en
+   avsiktlig enhet istället för lösryckta knappar i tomrummet. */
+.actions-toolbar {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  padding: 14px 16px;
 }
 
 .masthead-rules-title {
@@ -337,14 +350,18 @@ textarea {
 }
 
 .section-title h2 {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-primary-dark);
-  opacity: 0.85;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
   margin: 0;
+}
+
+.section-count {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-text-soft);
+  white-space: nowrap;
 }
 
 .list {
@@ -354,18 +371,32 @@ textarea {
 }
 
 .item-card {
+  position: relative;
+  overflow: hidden;
   background: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
-  padding: 18px 20px;
+  padding: 18px 20px 18px 26px;
   text-decoration: none;
   color: inherit;
   display: block;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.item-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--color-primary-dark), var(--color-gold));
 }
 
 .item-card:hover {
-  border-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px var(--shadow-color);
 }
 
 .item-card .meta {

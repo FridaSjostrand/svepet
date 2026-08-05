@@ -254,6 +254,7 @@ async function handleTaBortVin(vin) {
 
 async function loadViner() {
   const listEl = document.getElementById('vin-list');
+  const countEl = document.getElementById('vin-count');
   const { data, error } = await supabase
     .from('viner')
     .select('*, medlemmar (namn)')
@@ -263,6 +264,7 @@ async function loadViner() {
   listEl.innerHTML = '';
 
   if (error) {
+    countEl.textContent = '';
     const p = document.createElement('div');
     p.className = 'empty-state';
     p.textContent = 'Kunde inte hämta vinerna just nu.';
@@ -271,12 +273,15 @@ async function loadViner() {
   }
 
   if (!data || data.length === 0) {
+    countEl.textContent = '';
     const p = document.createElement('div');
     p.className = 'empty-state';
     p.textContent = 'Inga viner tillagda än — bli först!';
     listEl.appendChild(p);
     return;
   }
+
+  countEl.textContent = data.length === 1 ? '1 vin' : `${data.length} viner`;
 
   const vinIds = data.map((vin) => vin.id);
   const { data: betygData } = await supabase

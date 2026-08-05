@@ -49,10 +49,11 @@ create policy "kvallar_insert_inloggad"
   on public.kvallar for insert
   with check (auth.uid() is not null and skapad_av = auth.uid());
 
-create policy "kvallar_update_inloggad"
+-- Bara den som skapade kvällen får redigera den (samma modell som delete)
+create policy "kvallar_update_egen"
   on public.kvallar for update
-  using (auth.uid() is not null)
-  with check (auth.uid() is not null);
+  using (skapad_av = auth.uid())
+  with check (skapad_av = auth.uid());
 
 -- Bara den som skapade kvällen får ta bort den (till skillnad från
 -- update ovan, som är öppen för alla 8 — borttagning är oåterkalleligt)

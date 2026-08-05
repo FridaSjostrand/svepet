@@ -86,13 +86,59 @@ async function loadKvall() {
   const actionsEl = document.getElementById('kvall-actions');
   actionsEl.innerHTML = '';
   if (data.skapad_av === user.id) {
+    const row = document.createElement('div');
+    row.className = 'action-row';
+
+    const editBtn = document.createElement('button');
+    editBtn.className = 'btn btn-ghost';
+    editBtn.textContent = 'Redigera';
+    editBtn.addEventListener('click', () => openEditKvallForm(data));
+
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'btn btn-danger';
     deleteBtn.textContent = 'Ta bort kväll';
     deleteBtn.addEventListener('click', () => handleTaBortKvall(data.tema));
-    actionsEl.appendChild(deleteBtn);
+
+    row.appendChild(editBtn);
+    row.appendChild(deleteBtn);
+    actionsEl.appendChild(row);
   }
 }
+
+function openEditKvallForm(data) {
+  document.getElementById('edit-tema').value = data.tema;
+  document.getElementById('edit-datum').value = data.datum;
+  document.getElementById('edit-beskrivning').value = data.beskrivning || '';
+  document.getElementById('edit-kvall-error').textContent = '';
+  document.getElementById('edit-kvall-card').style.display = 'block';
+}
+
+document.getElementById('cancel-edit-kvall').addEventListener('click', () => {
+  document.getElementById('edit-kvall-card').style.display = 'none';
+});
+
+document.getElementById('edit-kvall-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const errorEl = document.getElementById('edit-kvall-error');
+  errorEl.textContent = '';
+
+  const tema = document.getElementById('edit-tema').value.trim();
+  const datum = document.getElementById('edit-datum').value;
+  const beskrivning = document.getElementById('edit-beskrivning').value.trim();
+
+  const { error } = await supabase
+    .from('kvallar')
+    .update({ tema, datum, beskrivning: beskrivning || null })
+    .eq('id', kvallId);
+
+  if (error) {
+    errorEl.textContent = 'Kunde inte spara ändringarna. Försök igen.';
+    return;
+  }
+
+  document.getElementById('edit-kvall-card').style.display = 'none';
+  await loadKvall();
+});
 
 async function handleTaBortKvall(tema) {
   const { count, error: countError } = await supabase

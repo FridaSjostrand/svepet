@@ -30,6 +30,27 @@
       <div id="kvall-actions"></div>
     </div>
 
+    <div class="card" id="edit-kvall-card" style="display: none; margin-top: 16px;">
+      <h3>Redigera kväll</h3>
+      <form id="edit-kvall-form">
+        <label for="edit-tema">Tema</label>
+        <input type="text" id="edit-tema" required />
+
+        <label for="edit-datum">Datum</label>
+        <input type="date" id="edit-datum" required />
+
+        <label for="edit-beskrivning">Beskrivning (valfritt)</label>
+        <textarea id="edit-beskrivning" placeholder="Regler, budget, plats..."></textarea>
+
+        <div class="error-text" id="edit-kvall-error"></div>
+
+        <div class="action-row" style="margin-top: 14px;">
+          <button type="submit" class="btn btn-primary">Spara ändringar</button>
+          <button type="button" class="btn btn-ghost" id="cancel-edit-kvall">Avbryt</button>
+        </div>
+      </form>
+    </div>
+
     <div class="toggle-form-wrap" style="margin-top: 24px;">
       <button class="btn btn-primary" id="toggle-new-vin">+ Lägg till vin</button>
 

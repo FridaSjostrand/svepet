@@ -135,7 +135,7 @@ a {
    varandra istället för i separata centrerade block under varandra. */
 .intro-row {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   gap: 24px;
   margin-bottom: 24px;
@@ -148,9 +148,22 @@ a {
 
 .intro-actions {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 14px;
+  row-gap: 10px;
+}
+
+.logout-fixed {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 50;
+  min-height: 38px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
 }
 
 /* Gemensam "toolbar"-yta för knappgrupper, så de läses som en
@@ -730,7 +743,15 @@ textarea {
   }
 
   .intro-actions {
-    align-items: center;
+    justify-content: center;
     width: 100%;
+  }
+
+  .logout-fixed {
+    top: 10px;
+    right: 10px;
+    padding: 7px 12px;
+    font-size: 0.78rem;
+    min-height: 34px;
   }
 }

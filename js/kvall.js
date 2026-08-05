@@ -63,6 +63,76 @@ document.getElementById('new-vin-form').addEventListener('submit', async (event)
   await loadViner();
 });
 
+let editingVinId = null;
+
+function openEditVinForm(vin) {
+  editingVinId = vin.id;
+  document.getElementById('edit-namn').value = vin.namn;
+  document.getElementById('edit-producent').value = vin.producent || '';
+  document.getElementById('edit-argang').value = vin.argang ?? '';
+  document.getElementById('edit-kategori').value = vin.kategori;
+  document.getElementById('edit-druva').value = vin.druva || '';
+  document.getElementById('edit-lagring').value = vin.lagring || '';
+  document.getElementById('edit-land').value = vin.land || '';
+  document.getElementById('edit-region').value = vin.region || '';
+  document.getElementById('edit-pris').value = vin.pris ?? '';
+  document.getElementById('edit-alkohol_procent').value = vin.alkohol_procent ?? '';
+  document.getElementById('edit-volym_ml').value = vin.volym_ml ?? '';
+  document.getElementById('edit-bild_url').value = vin.bild_url || '';
+  document.getElementById('edit-systembolaget_lank').value = vin.systembolaget_lank || '';
+  document.getElementById('edit-vin-beskrivning').value = vin.beskrivning || '';
+  document.getElementById('edit-vin-error').textContent = '';
+
+  const card = document.getElementById('edit-vin-card');
+  card.style.display = 'block';
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+document.getElementById('cancel-edit-vin').addEventListener('click', () => {
+  document.getElementById('edit-vin-card').style.display = 'none';
+  editingVinId = null;
+});
+
+document.getElementById('edit-vin-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const errorEl = document.getElementById('edit-vin-error');
+  errorEl.textContent = '';
+
+  const textVal = (id) => document.getElementById(id).value.trim() || null;
+  const numVal = (id) => {
+    const raw = document.getElementById(id).value;
+    return raw === '' ? null : Number(raw);
+  };
+
+  const payload = {
+    namn: document.getElementById('edit-namn').value.trim(),
+    producent: textVal('edit-producent'),
+    argang: numVal('edit-argang'),
+    kategori: document.getElementById('edit-kategori').value,
+    druva: textVal('edit-druva'),
+    land: textVal('edit-land'),
+    region: textVal('edit-region'),
+    lagring: textVal('edit-lagring'),
+    pris: numVal('edit-pris'),
+    alkohol_procent: numVal('edit-alkohol_procent'),
+    volym_ml: numVal('edit-volym_ml'),
+    bild_url: textVal('edit-bild_url'),
+    systembolaget_lank: textVal('edit-systembolaget_lank'),
+    beskrivning: textVal('edit-vin-beskrivning'),
+  };
+
+  const { error } = await supabase.from('viner').update(payload).eq('id', editingVinId);
+
+  if (error) {
+    errorEl.textContent = 'Kunde inte spara ändringarna. Försök igen.';
+    return;
+  }
+
+  document.getElementById('edit-vin-card').style.display = 'none';
+  editingVinId = null;
+  await loadViner();
+});
+
 async function loadKvall() {
   const { data, error } = await supabase
     .from('kvallar')
@@ -334,6 +404,19 @@ function renderVinCard(vin, betygLista) {
   footer.className = 'wine-footer';
   footer.textContent = `Tillagd av ${vin.medlemmar?.namn ?? 'okänd'}`;
   body.appendChild(footer);
+
+  const editRow = document.createElement('div');
+  editRow.className = 'action-row';
+  editRow.style.marginTop = '10px';
+
+  const editBtn = document.createElement('button');
+  editBtn.type = 'button';
+  editBtn.className = 'btn btn-ghost';
+  editBtn.textContent = 'Redigera';
+  editBtn.addEventListener('click', () => openEditVinForm(vin));
+
+  editRow.appendChild(editBtn);
+  body.appendChild(editRow);
 
   body.appendChild(renderBetygSektion(vin, betygLista));
   card.appendChild(body);

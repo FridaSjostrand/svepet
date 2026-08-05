@@ -143,6 +143,94 @@
       </div>
     </div>
 
+    <div class="card" id="edit-vin-card" style="display: none; margin-top: 16px;">
+      <h3>Redigera vin</h3>
+      <form id="edit-vin-form">
+        <label for="edit-namn">Namn</label>
+        <input type="text" id="edit-namn" required />
+
+        <div class="field-row">
+          <div>
+            <label for="edit-producent">Producent</label>
+            <input type="text" id="edit-producent" />
+          </div>
+          <div>
+            <label for="edit-argang">Årgång</label>
+            <input type="number" id="edit-argang" min="1900" max="2100" placeholder="t.ex. 2021" />
+          </div>
+        </div>
+
+        <label for="edit-kategori">Kategori</label>
+        <select id="edit-kategori" required>
+          <option value="mousserande">Mousserande</option>
+          <option value="vitt lätt">Vitt lätt</option>
+          <option value="vitt fylligt">Vitt fylligt</option>
+          <option value="rosé">Rosé</option>
+          <option value="rött lätt">Rött lätt</option>
+          <option value="rött fylligt">Rött fylligt</option>
+          <option value="sött">Sött</option>
+          <option value="starkvin">Starkvin</option>
+        </select>
+
+        <div class="field-row">
+          <div>
+            <label for="edit-druva">Druva</label>
+            <input type="text" id="edit-druva" />
+          </div>
+          <div>
+            <label for="edit-lagring">Lagring</label>
+            <select id="edit-lagring">
+              <option value="">Ej valt</option>
+              <option value="stål">Stål</option>
+              <option value="delvis fat">Delvis fat</option>
+              <option value="fatlagrat">Fatlagrat</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div>
+            <label for="edit-land">Land</label>
+            <input type="text" id="edit-land" />
+          </div>
+          <div>
+            <label for="edit-region">Region</label>
+            <input type="text" id="edit-region" />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div>
+            <label for="edit-pris">Pris (kr)</label>
+            <input type="number" id="edit-pris" min="0" step="0.01" />
+          </div>
+          <div>
+            <label for="edit-alkohol_procent">Alkohol %</label>
+            <input type="number" id="edit-alkohol_procent" min="0" max="100" step="0.1" />
+          </div>
+        </div>
+
+        <label for="edit-volym_ml">Volym (ml)</label>
+        <input type="number" id="edit-volym_ml" min="0" step="1" placeholder="t.ex. 750" />
+
+        <label for="edit-bild_url">Bildlänk (valfritt)</label>
+        <input type="url" id="edit-bild_url" placeholder="https://..." />
+
+        <label for="edit-systembolaget_lank">Länk till Systembolaget</label>
+        <input type="url" id="edit-systembolaget_lank" placeholder="https://www.systembolaget.se/..." />
+
+        <label for="edit-vin-beskrivning">Beskrivning</label>
+        <textarea id="edit-vin-beskrivning" placeholder="Egna anteckningar om vinet"></textarea>
+
+        <div class="error-text" id="edit-vin-error"></div>
+
+        <div class="action-row" style="margin-top: 14px;">
+          <button type="submit" class="btn btn-primary">Spara ändringar</button>
+          <button type="button" class="btn btn-ghost" id="cancel-edit-vin">Avbryt</button>
+        </div>
+      </form>
+    </div>
+
     <div class="section-title">
       <h2>Viner</h2>
     </div>

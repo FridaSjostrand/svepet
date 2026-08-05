@@ -39,9 +39,23 @@ med Claude Code, kopplad till Supabase (databas + inloggning) och Netlify
   ("operational credits") som även blockerar manuell publicering via
   Netlify CLI. Som tillfälligt komplement är repot gjort publikt och
   GitHub Pages aktiverat på `main`-grenen (`/root`), så det finns en
-  live-länk att testa på under tiden. Huvudlänken är fortfarande
-  `svepet.netlify.app` — så fort Netlifys bugg är löst slutar vi använda
-  GitHub Pages och kan göra repot privat igen om vi vill.
+  live-länk att testa på under tiden:
+  **https://fridasjostrand.github.io/svepet/**
+  GitHub Pages bygger om automatiskt vid varje push till `main` — inget
+  extra kommando behövs för den, till skillnad från Netlify.
+- **Tillfälligt arbetsflöde vid push, så länge GitHub Pages är den
+  aktiva reservlänken:**
+  1. `git push` (som vanligt) — räcker för att GitHub Pages ska
+     uppdateras automatiskt inom någon minut.
+  2. Försök ändå köra `netlify deploy --prod` efter varje push, som ett
+     billigt försök — om Netlifys spärr har lyfts fungerar den då
+     direkt utan att vi behöver komma ihåg att testa manuellt, och om
+     den fortfarande är blockerad misslyckas den bara tyst utan att
+     störa något.
+  Huvudlänken är fortfarande `svepet.netlify.app` — så fort Netlifys
+  bugg är löst slutar vi använda GitHub Pages-länken och sätter repot
+  tillbaka till Private igen. Det här är fortfarande en tillfällig
+  lösning, inte en permanent ersättning.
 
 ## Om projektet
 

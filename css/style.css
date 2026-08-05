@@ -9,8 +9,8 @@
   --color-primary-dark: #c46b8b;
   --color-gold: #d8a657;
   --color-gold-light: #eac488;
-  --color-rose-deep: #b3577a;
-  --color-rose-soft: #cf7f9c;
+  --color-primary-pale: #f6cfdd;
+  --color-gold-pale: #f0dba8;
   --color-text: #4a2a3a;
   --color-text-soft: #8c6478;
   --color-border: #f0d3de;
@@ -157,9 +157,10 @@ a {
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, var(--color-rose-deep), var(--color-rose-soft));
+  background: linear-gradient(90deg, var(--color-primary-dark), var(--color-gold));
   color: #fff;
-  box-shadow: 0 6px 16px rgba(179, 87, 122, 0.35);
+  text-shadow: 0 1px 3px rgba(74, 42, 58, 0.35);
+  box-shadow: 0 6px 16px rgba(196, 107, 139, 0.35);
 }
 
 .btn-primary:hover {
@@ -168,13 +169,13 @@ a {
 }
 
 .btn-ghost {
-  background: transparent;
-  color: var(--color-primary-dark);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(90deg, var(--color-primary-pale), var(--color-gold-pale));
+  color: var(--color-text);
+  border: none;
 }
 
 .btn-ghost:hover {
-  background: var(--color-gold-light);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-gold-light));
 }
 
 label {

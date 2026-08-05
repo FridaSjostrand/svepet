@@ -213,6 +213,10 @@ a {
   margin-top: 14px;
 }
 
+/* Formulärregel: label sitter alltid direkt ovanför sitt fält, flush
+   vänsterkant, med samma marginal överallt (14px ovan, 6px under).
+   Skriv aldrig en egen margin/indrag på ett enskilt label — ändra
+   här om avståndet någonsin behöver bli annorlunda. */
 label {
   display: block;
   font-size: 0.85rem;
@@ -248,9 +252,21 @@ textarea {
   min-height: 70px;
 }
 
+/* Grupperingsregel för formulärfält: korta fält (nummer, kort text,
+   datum) ska alltid radas ihop med .field-row (2 kolumner) eller
+   .field-row-3 (3 kolumner) — aldrig stå ensamma i full bredd.
+   Långa fält (fritext som Beskrivning, länkar som Bildlänk/
+   Systembolagslänk, eller ett fälts huvudidentitet som Namn/Tema)
+   står alltid ensamma, utanför field-row. */
 .field-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 0 14px;
+}
+
+.field-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 0 14px;
 }
 
@@ -563,7 +579,8 @@ textarea {
     padding: 20px;
   }
 
-  .field-row {
+  .field-row,
+  .field-row-3 {
     grid-template-columns: 1fr;
     gap: 14px 0;
   }

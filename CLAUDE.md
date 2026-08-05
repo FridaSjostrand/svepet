@@ -32,6 +32,17 @@ med Claude Code, kopplad till Supabase (databas + inloggning) och Netlify
 - **Spara ofta.** Committa och pusha till GitHub automatiskt efter varje
   kodändring. Netlify bygger om automatiskt vid varje push.
 
+## Tillfälliga regler
+
+- **GitHub Pages som reservlänk (tillfälligt, ta bort när Netlify är
+  löst).** Netlifys automatiska deploy är pausad pga en känd Netlify-bugg
+  ("operational credits") som även blockerar manuell publicering via
+  Netlify CLI. Som tillfälligt komplement är repot gjort publikt och
+  GitHub Pages aktiverat på `main`-grenen (`/root`), så det finns en
+  live-länk att testa på under tiden. Huvudlänken är fortfarande
+  `svepet.netlify.app` — så fort Netlifys bugg är löst slutar vi använda
+  GitHub Pages och kan göra repot privat igen om vi vill.
+
 ## Om projektet
 
 - **Klubbnamn:** Svepet

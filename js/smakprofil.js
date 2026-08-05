@@ -15,7 +15,7 @@ async function loadSmakprofil() {
 
   const { data, error } = await supabase
     .from('betyg')
-    .select('poang, viner (druva, land, lagring, kategori)')
+    .select('poang, viner (druva, land, kategori)')
     .eq('medlem_id', user.id);
 
   rootEl.innerHTML = '';
@@ -34,9 +34,6 @@ async function loadSmakprofil() {
 
   rootEl.appendChild(renderChartCard('Druvor du gillar bäst', grupperaEfterVarde(data, (r) => r.viner?.druva)));
   rootEl.appendChild(renderChartCard('Länder du gillar bäst', grupperaEfterVarde(data, (r) => r.viner?.land)));
-  rootEl.appendChild(
-    renderChartCard('Lagringsstilar du gillar bäst', grupperaEfterVarde(data, (r) => r.viner?.lagring, capitalize))
-  );
   rootEl.appendChild(
     renderChartCard(
       'Vin-stilar du gillar bäst',

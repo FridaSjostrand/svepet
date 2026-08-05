@@ -36,13 +36,11 @@ document.getElementById('new-vin-form').addEventListener('submit', async (event)
     kvall_id: kvallId,
     tillagd_av: user.id,
     namn: document.getElementById('namn').value.trim(),
-    producent: textVal('producent'),
     argang: numVal('argang'),
     kategori: document.getElementById('kategori').value,
     druva: textVal('druva'),
     land: textVal('land'),
     region: textVal('region'),
-    lagring: textVal('lagring'),
     pris: numVal('pris'),
     alkohol_procent: numVal('alkohol_procent'),
     volym_ml: numVal('volym_ml'),
@@ -68,11 +66,9 @@ let editingVinId = null;
 function openEditVinForm(vin) {
   editingVinId = vin.id;
   document.getElementById('edit-namn').value = vin.namn;
-  document.getElementById('edit-producent').value = vin.producent || '';
   document.getElementById('edit-argang').value = vin.argang ?? '';
   document.getElementById('edit-kategori').value = vin.kategori;
   document.getElementById('edit-druva').value = vin.druva || '';
-  document.getElementById('edit-lagring').value = vin.lagring || '';
   document.getElementById('edit-land').value = vin.land || '';
   document.getElementById('edit-region').value = vin.region || '';
   document.getElementById('edit-pris').value = vin.pris ?? '';
@@ -106,13 +102,11 @@ document.getElementById('edit-vin-form').addEventListener('submit', async (event
 
   const payload = {
     namn: document.getElementById('edit-namn').value.trim(),
-    producent: textVal('edit-producent'),
     argang: numVal('edit-argang'),
     kategori: document.getElementById('edit-kategori').value,
     druva: textVal('edit-druva'),
     land: textVal('edit-land'),
     region: textVal('edit-region'),
-    lagring: textVal('edit-lagring'),
     pris: numVal('edit-pris'),
     alkohol_procent: numVal('edit-alkohol_procent'),
     volym_ml: numVal('edit-volym_ml'),
@@ -243,6 +237,21 @@ async function handleTaBortKvall(tema) {
   window.location.href = 'kvallar.html';
 }
 
+async function handleTaBortVin(vin) {
+  if (!confirm(`Ta bort vinet "${vin.namn}"? Betyg kopplade till det tas bort samtidigt. Det går inte att ångra.`)) {
+    return;
+  }
+
+  const { error } = await supabase.from('viner').delete().eq('id', vin.id);
+
+  if (error) {
+    alert('Kunde inte ta bort vinet. Försök igen.');
+    return;
+  }
+
+  await loadViner();
+}
+
 async function loadViner() {
   const listEl = document.getElementById('vin-list');
   const { data, error } = await supabase
@@ -348,13 +357,6 @@ function renderVinCard(vin, betygLista) {
   title.textContent = vin.argang ? `${vin.namn} (${vin.argang})` : vin.namn;
   titleWrap.appendChild(title);
 
-  if (vin.producent) {
-    const producent = document.createElement('div');
-    producent.className = 'meta';
-    producent.textContent = vin.producent;
-    titleWrap.appendChild(producent);
-  }
-
   const headRight = document.createElement('div');
   headRight.className = 'wine-head-right';
   if (!harBild) {
@@ -371,7 +373,6 @@ function renderVinCard(vin, betygLista) {
   const factList = [
     vin.druva,
     [vin.land, vin.region].filter(Boolean).join(', '),
-    vin.lagring,
     vin.volym_ml ? `${vin.volym_ml} ml` : null,
     vin.alkohol_procent != null ? `${vin.alkohol_procent}%` : null,
     vin.pris != null ? `${vin.pris} kr` : null,
@@ -415,7 +416,14 @@ function renderVinCard(vin, betygLista) {
   editBtn.textContent = 'Redigera';
   editBtn.addEventListener('click', () => openEditVinForm(vin));
 
+  const deleteVinBtn = document.createElement('button');
+  deleteVinBtn.type = 'button';
+  deleteVinBtn.className = 'btn btn-danger';
+  deleteVinBtn.textContent = 'Ta bort vin';
+  deleteVinBtn.addEventListener('click', () => handleTaBortVin(vin));
+
   editRow.appendChild(editBtn);
+  editRow.appendChild(deleteVinBtn);
   body.appendChild(editRow);
 
   body.appendChild(renderBetygSektion(vin, betygLista));

@@ -16,8 +16,12 @@ med Claude Code, kopplad till Supabase (databas + inloggning) och Netlify
   komma åt datan. Row Level Security (RLS) i Supabase ska vara på plats
   från start, inte lappas på i efterhand. Sanera all text användare
   skriver in innan den visas eller sparas.
-- **Testa innan vi går vidare.** Kör och bekräfta att något fungerar innan
-  nästa sak läggs till.
+- **Bygg, committa och pusha direkt — vänta inte på test/godkännande.**
+  Jag testar på den publicerade sidan (svepet.netlify.app) i efterhand,
+  inte lokalt innan push. Gäller kod (HTML/CSS/JS). **Undantag:**
+  databasschema, RLS-policyer och GRANT-rättigheter — de kör jag alltid
+  själv manuellt i Supabase SQL Editor, och de räknas inte som klara
+  förrän jag bekräftat att de kördes.
 - **Sammanfatta kort efter varje steg.** Några meningar om vad som
   ändrades, så det går att följa med.
 - **Fråga hellre än att gissa.** Är något oklart — fråga i stället för att
@@ -26,8 +30,7 @@ med Claude Code, kopplad till Supabase (databas + inloggning) och Netlify
   Föreslå inga betaltjänster. Välj det enklare sättet framför det
   avancerade.
 - **Spara ofta.** Committa och pusha till GitHub automatiskt efter varje
-  fungerande, testat steg — vänta inte på att bli ombedd. Netlify bygger
-  om automatiskt vid varje push.
+  kodändring. Netlify bygger om automatiskt vid varje push.
 
 ## Om projektet
 

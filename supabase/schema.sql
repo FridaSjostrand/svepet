@@ -54,9 +54,11 @@ create policy "kvallar_update_inloggad"
   using (auth.uid() is not null)
   with check (auth.uid() is not null);
 
-create policy "kvallar_delete_inloggad"
+-- Bara den som skapade kvällen får ta bort den (till skillnad från
+-- update ovan, som är öppen för alla 8 — borttagning är oåterkalleligt)
+create policy "kvallar_delete_egen"
   on public.kvallar for delete
-  using (auth.uid() is not null);
+  using (skapad_av = auth.uid());
 
 
 -- ----------------------------------------------------------------
@@ -64,7 +66,7 @@ create policy "kvallar_delete_inloggad"
 -- ----------------------------------------------------------------
 create table public.viner (
   id uuid primary key default gen_random_uuid(),
-  kvall_id uuid not null references public.kvallar (id) on delete cascade,
+  kvall_id uuid not null references public.kvallar (id) on delete restrict,
   tillagd_av uuid references public.medlemmar (id) on delete set null,
   namn text not null,
   producent text,

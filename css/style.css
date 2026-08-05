@@ -210,6 +210,21 @@ a {
   background: linear-gradient(90deg, var(--color-primary), var(--color-gold-light));
 }
 
+.btn-danger {
+  background: transparent;
+  color: #a3455a;
+  border: 1px solid #e3b3bf;
+  box-shadow: none;
+}
+
+.btn-danger:hover {
+  background: #fdeef1;
+}
+
+#kvall-actions:not(:empty) {
+  margin-top: 14px;
+}
+
 label {
   display: block;
   font-size: 0.85rem;

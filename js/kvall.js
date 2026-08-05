@@ -82,6 +82,49 @@ async function loadKvall() {
     day: 'numeric',
   });
   document.getElementById('kvall-beskrivning').textContent = data.beskrivning || '';
+
+  const actionsEl = document.getElementById('kvall-actions');
+  actionsEl.innerHTML = '';
+  if (data.skapad_av === user.id) {
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn btn-danger';
+    deleteBtn.textContent = 'Ta bort kväll';
+    deleteBtn.addEventListener('click', () => handleTaBortKvall(data.tema));
+    actionsEl.appendChild(deleteBtn);
+  }
+}
+
+async function handleTaBortKvall(tema) {
+  const { count, error: countError } = await supabase
+    .from('viner')
+    .select('id', { count: 'exact', head: true })
+    .eq('kvall_id', kvallId);
+
+  if (countError) {
+    alert('Kunde inte kontrollera vinerna just nu. Försök igen.');
+    return;
+  }
+
+  if (count > 0) {
+    alert(
+      `Den här kvällen har ${count} ${count === 1 ? 'vin' : 'viner'} kopplade och kan inte tas bort. ` +
+        'Ta bort vinerna först om du vill radera hela kvällen.'
+    );
+    return;
+  }
+
+  if (!confirm(`Ta bort kvällen "${tema}"? Det går inte att ångra.`)) {
+    return;
+  }
+
+  const { error } = await supabase.from('kvallar').delete().eq('id', kvallId);
+
+  if (error) {
+    alert('Kunde inte ta bort kvällen. Försök igen.');
+    return;
+  }
+
+  window.location.href = 'kvallar.html';
 }
 
 async function loadViner() {

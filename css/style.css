@@ -9,6 +9,8 @@
   --color-primary-dark: #c46b8b;
   --color-gold: #d8a657;
   --color-gold-light: #eac488;
+  --color-rose-deep: #b3577a;
+  --color-rose-soft: #cf7f9c;
   --color-text: #4a2a3a;
   --color-text-soft: #8c6478;
   --color-border: #f0d3de;
@@ -155,9 +157,9 @@ a {
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, var(--color-primary-dark), var(--color-gold));
+  background: linear-gradient(90deg, var(--color-rose-deep), var(--color-rose-soft));
   color: #fff;
-  box-shadow: 0 6px 16px rgba(196, 107, 139, 0.35);
+  box-shadow: 0 6px 16px rgba(179, 87, 122, 0.35);
 }
 
 .btn-primary:hover {

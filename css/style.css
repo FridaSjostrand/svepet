@@ -90,7 +90,7 @@ a {
 
 .masthead .club-name {
   font-family: var(--font-heading);
-  font-size: clamp(2.1rem, 7vw, 3rem);
+  font-size: clamp(2.4rem, 8vw, 3.6rem);
   font-weight: 600;
   font-style: italic;
   background: linear-gradient(90deg, var(--color-primary-dark), var(--color-gold));
@@ -168,6 +168,7 @@ a {
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
+  text-decoration: none;
   box-shadow: 0 4px 10px var(--shadow-color);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }

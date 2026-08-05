@@ -9,6 +9,7 @@
   --color-primary-dark: #c46b8b;
   --color-gold: #d8a657;
   --color-gold-light: #eac488;
+  --color-gold-rich: #b8722a;
   --color-primary-pale: #f6cfdd;
   --color-gold-pale: #f0dba8;
   --color-text: #4a2a3a;
@@ -93,7 +94,7 @@ a {
   font-size: clamp(2.8rem, 9vw, 4.2rem);
   font-weight: 600;
   font-style: italic;
-  background: linear-gradient(90deg, var(--color-primary-dark), var(--color-gold));
+  background: linear-gradient(90deg, var(--color-primary-dark) 0%, var(--color-gold-rich) 38%, var(--color-gold-rich) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

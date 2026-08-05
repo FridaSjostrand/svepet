@@ -107,6 +107,35 @@ a {
   margin: 10px auto 0;
 }
 
+.masthead-rules {
+  margin-top: 20px;
+}
+
+.masthead-rules-title {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+  opacity: 0.75;
+  margin-bottom: 8px;
+}
+
+.masthead-rules ol {
+  list-style-position: inside;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 0;
+  color: var(--color-text-soft);
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.masthead-rules ol li {
+  text-align: center;
+}
+
 .card {
   background: var(--color-card);
   border: 1px solid var(--color-border);

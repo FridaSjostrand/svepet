@@ -107,6 +107,7 @@ a {
 .hero {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 24px;
   margin-bottom: 28px;
 }
@@ -119,8 +120,8 @@ a {
 }
 
 .hero .tagline {
-  color: var(--color-text);
-  font-size: 0.92rem;
+  color: #2e1b26;
+  font-size: 0.82rem;
   line-height: 1.5;
   font-style: italic;
   margin: 0;
@@ -133,7 +134,7 @@ a {
 .intro-actions {
   display: flex;
   justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: 8px;
 }
 
 .corner-actions {
@@ -174,38 +175,39 @@ a {
 
 .rules-list {
   list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 14px;
+  row-gap: 12px;
   align-items: center;
-  gap: 12px;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0;
 }
 
 .rules-list li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  display: contents;
 }
 
 .rule-number {
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  border: 1.5px solid var(--color-primary-dark);
-  color: var(--color-primary-dark);
+  border: 3px double var(--color-gold-rich);
+  background: var(--color-card-soft);
+  color: var(--color-gold-rich);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
 }
 
 .rule-text {
   color: var(--color-text-soft);
   font-size: 0.92rem;
+  text-align: left;
 }
 
 .card {
@@ -369,7 +371,7 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 16px 0;
+  margin: 8px 0 16px;
 }
 
 .section-title h2 {
@@ -693,7 +695,7 @@ textarea {
 }
 
 .toggle-form-wrap {
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   text-align: center;
 }
 
@@ -754,6 +756,11 @@ textarea {
   .hero .tagline {
     text-align: center;
     max-width: 100%;
+  }
+
+  .rules-list {
+    width: 100%;
+    grid-template-columns: auto 1fr;
   }
 
   .corner-actions {

@@ -100,6 +100,11 @@ a {
 .masthead-rules {
   margin: 0 0 32px;
   text-align: center;
+  background: var(--color-card-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 28px 24px;
 }
 
 /* Hero-rad (kvallar.html): logga och tagline sida vid sida på bredare
@@ -133,7 +138,7 @@ a {
    direkt ovanför Kvällar-sektionen. */
 .intro-actions {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   margin-bottom: 8px;
 }
 
@@ -168,9 +173,11 @@ a {
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
   color: var(--color-primary-dark);
   opacity: 0.75;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .rules-list {
@@ -441,6 +448,11 @@ textarea {
   color: var(--color-text-soft);
   font-size: 0.85rem;
   margin-top: 4px;
+  white-space: pre-line;
+}
+
+#kvall-beskrivning {
+  white-space: pre-line;
 }
 
 #kvall-datum {

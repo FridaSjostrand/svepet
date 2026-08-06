@@ -98,15 +98,12 @@ a {
 }
 
 .masthead-rules {
-  margin-top: 20px;
-  max-width: 320px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 0 24px;
   background: var(--color-card-soft);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
-  padding: 16px 20px 18px;
+  padding: 24px 28px 26px;
 }
 
 /* Hero-rad (kvallar.html): logga och tagline sida vid sida på bredare
@@ -126,34 +123,25 @@ a {
 }
 
 .hero .tagline {
+  color: var(--color-text-soft);
+  font-size: 1.05rem;
+  line-height: 1.5;
+  font-style: italic;
   margin: 0;
   text-align: left;
   max-width: 380px;
 }
 
-/* Introrad (kvallar.html): regelkortet och åtgärdsknapparna bredvid
-   varandra istället för i separata centrerade block under varandra. */
-.intro-row {
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 24px;
-}
-
-.intro-row .masthead-rules {
-  margin: 0;
-  flex-shrink: 0;
-}
-
+/* Åtgärdsknappar (kvallar.html): fria, utan bakgrundsbehållare,
+   direkt ovanför Kvällar-sektionen. */
 .intro-actions {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 14px;
   row-gap: 10px;
+  margin-bottom: 24px;
 }
 
 .logout-fixed {
@@ -178,24 +166,25 @@ a {
 
 .masthead-rules-title {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-primary-dark);
   opacity: 0.75;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
 .masthead-rules ul {
   list-style-position: outside;
   text-align: left;
-  max-width: 300px;
-  margin: 0 auto;
+  columns: 2;
+  column-gap: 32px;
+  margin: 0;
   padding-left: 20px;
   color: var(--color-text-soft);
-  font-size: 0.82rem;
-  line-height: 1.7;
+  font-size: 0.95rem;
+  line-height: 1.9;
 }
 
 .card {
@@ -363,11 +352,24 @@ textarea {
 }
 
 .section-title h2 {
+  position: relative;
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-text);
   margin: 0;
+  padding-left: 14px;
+}
+
+.section-title h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  width: 5px;
+  height: 1em;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--color-primary-dark), var(--color-gold));
 }
 
 .section-count {
@@ -733,18 +735,16 @@ textarea {
     max-width: 100%;
   }
 
-  .intro-row {
-    flex-direction: column;
-    align-items: center;
+  .masthead-rules {
+    padding: 18px 20px 20px;
   }
 
-  .intro-row .masthead-rules {
-    width: 100%;
+  .masthead-rules ul {
+    columns: 1;
   }
 
   .intro-actions {
     justify-content: center;
-    width: 100%;
   }
 
   .logout-fixed {

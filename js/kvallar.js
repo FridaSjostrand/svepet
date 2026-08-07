@@ -43,8 +43,7 @@ async function loadKvallar() {
   const countEl = document.getElementById('kvall-count');
   const { data, error } = await supabase
     .from('kvallar')
-    .select('*')
-    .order('datum', { ascending: false });
+    .select('*');
 
   listEl.innerHTML = '';
 
@@ -68,6 +67,16 @@ async function loadKvallar() {
   }
 
   countEl.textContent = data.length === 1 ? '1 kväll' : `${data.length} kvällar`;
+
+  const idag = new Date().toISOString().slice(0, 10);
+  data.sort((a, b) => {
+    const aKommande = a.datum >= idag;
+    const bKommande = b.datum >= idag;
+    if (aKommande !== bKommande) {
+      return aKommande ? -1 : 1;
+    }
+    return aKommande ? a.datum.localeCompare(b.datum) : b.datum.localeCompare(a.datum);
+  });
 
   for (const kvall of data) {
     const link = document.createElement('a');

@@ -346,6 +346,14 @@ textarea {
   gap: 0 14px;
 }
 
+/* Utan min-width:0 tvingar grid-cellens innehåll (t.ex. en lång
+   label-text som "Alkohol %") sin egen kolumn bredare än sina
+   syskon, trots att alla kolumner ska vara lika breda (1fr). */
+.field-row > div,
+.field-row-3 > div {
+  min-width: 0;
+}
+
 .error-text {
   color: #b3455a;
   font-size: 0.85rem;

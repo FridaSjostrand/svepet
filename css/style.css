@@ -159,16 +159,6 @@ a {
   font-size: 0.85rem;
 }
 
-/* Gemensam "toolbar"-yta för knappgrupper, så de läses som en
-   avsiktlig enhet istället för lösryckta knappar i tomrummet. */
-.actions-toolbar {
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-soft);
-  padding: 14px 16px;
-}
-
 .masthead-rules-title {
   font-family: var(--font-mono);
   font-size: 0.88rem;
@@ -230,13 +220,6 @@ a {
   margin-top: 20px;
 }
 
-.topbar {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -253,11 +236,6 @@ a {
   text-decoration: none;
   box-shadow: 0 4px 10px var(--shadow-color);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.topbar-actions {
-  display: flex;
-  gap: 10px;
 }
 
 .action-row {
@@ -733,16 +711,6 @@ textarea {
   .field-row-3 {
     grid-template-columns: 1fr;
     gap: 14px 0;
-  }
-
-  .topbar {
-    flex-wrap: wrap;
-    row-gap: 10px;
-  }
-
-  .topbar-actions {
-    width: 100%;
-    justify-content: flex-end;
   }
 
   .bar-row {

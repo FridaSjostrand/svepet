@@ -25,19 +25,23 @@
   --font-mono: 'JetBrains Mono', monospace;
 
   /* Kategori-färger — matchar vinets faktiska färg, används av pillen på vinkorten */
-  --kat-guld-bg: #e8c97a;
-  --kat-vitt-fruktig-frisk-bg: #e8e2a0;
-  --kat-vitt-torr-fruktig-bg: #e3cf88;
-  --kat-vitt-rund-fruktig-bg: #ddb96e;
-  --kat-rose-bg: #f0a8bc;
-  --kat-rott-fruktig-bg: #e29aa8;
-  --kat-rott-mjukt-barigt-bg: #d68898;
-  --kat-rott-fruktig-mustig-bg: #c97689;
-  --kat-rott-stravt-fruktig-bg: #bb6478;
-  --kat-rott-kryddig-mustig-bg: #a8506a;
-  --kat-rott-fyllig-mustig-bg: #8f3c58;
-  --kat-amber-bg: #d9a85c;
-  --kat-amber-morkt-bg: #a97850;
+  --kat-mousserande-torrt-bg: #eddca3;
+  --kat-mousserande-halvtorrt-bg: #e6c987;
+  --kat-mousserande-smaksatt-bg: #dfb36a;
+  --kat-mousserande-rott-bg: #d99a86;
+  --kat-mousserande-sott-bg: #cf9c52;
+  --kat-vitt-friskt-fruktigt-bg: #e7e2a0;
+  --kat-vitt-latt-avrundat-bg: #e2d488;
+  --kat-vitt-druvigt-blommigt-bg: #d3d47c;
+  --kat-vitt-fylligt-smakrikt-bg: #ddb96e;
+  --kat-vitt-sott-bg: #b98a3e;
+  --kat-rose-friskt-barigt-bg: #f0b4c4;
+  --kat-rose-fruktigt-smakrikt-bg: #e896ac;
+  --kat-rott-mjukt-barigt-bg: #dd93a4;
+  --kat-rott-stramt-nyanserat-bg: #c97e8e;
+  --kat-rott-fruktigt-smakrikt-bg: #b56b7c;
+  --kat-rott-kryddigt-mustigt-bg: #93415a;
+  --kat-rott-sott-bg: #7d3a42;
 }
 
 * {
@@ -485,19 +489,23 @@ textarea {
   flex-shrink: 0;
 }
 
-.pill-guld { background: var(--kat-guld-bg); color: var(--color-text); }
-.pill-vitt-fruktig-frisk { background: var(--kat-vitt-fruktig-frisk-bg); color: var(--color-text); }
-.pill-vitt-torr-fruktig { background: var(--kat-vitt-torr-fruktig-bg); color: var(--color-text); }
-.pill-vitt-rund-fruktig { background: var(--kat-vitt-rund-fruktig-bg); color: var(--color-text); }
-.pill-rose { background: var(--kat-rose-bg); color: var(--color-text); }
-.pill-rott-fruktig { background: var(--kat-rott-fruktig-bg); color: var(--color-text); }
+.pill-mousserande-torrt { background: var(--kat-mousserande-torrt-bg); color: var(--color-text); }
+.pill-mousserande-halvtorrt { background: var(--kat-mousserande-halvtorrt-bg); color: var(--color-text); }
+.pill-mousserande-smaksatt { background: var(--kat-mousserande-smaksatt-bg); color: var(--color-text); }
+.pill-mousserande-rott { background: var(--kat-mousserande-rott-bg); color: var(--color-text); }
+.pill-mousserande-sott { background: var(--kat-mousserande-sott-bg); color: var(--color-text); }
+.pill-vitt-friskt-fruktigt { background: var(--kat-vitt-friskt-fruktigt-bg); color: var(--color-text); }
+.pill-vitt-latt-avrundat { background: var(--kat-vitt-latt-avrundat-bg); color: var(--color-text); }
+.pill-vitt-druvigt-blommigt { background: var(--kat-vitt-druvigt-blommigt-bg); color: var(--color-text); }
+.pill-vitt-fylligt-smakrikt { background: var(--kat-vitt-fylligt-smakrikt-bg); color: var(--color-text); }
+.pill-vitt-sott { background: var(--kat-vitt-sott-bg); color: var(--color-text); }
+.pill-rose-friskt-barigt { background: var(--kat-rose-friskt-barigt-bg); color: var(--color-text); }
+.pill-rose-fruktigt-smakrikt { background: var(--kat-rose-fruktigt-smakrikt-bg); color: var(--color-text); }
 .pill-rott-mjukt-barigt { background: var(--kat-rott-mjukt-barigt-bg); color: var(--color-text); }
-.pill-rott-fruktig-mustig { background: var(--kat-rott-fruktig-mustig-bg); color: var(--color-text); }
-.pill-rott-stravt-fruktig { background: var(--kat-rott-stravt-fruktig-bg); color: var(--color-text); }
-.pill-rott-kryddig-mustig { background: var(--kat-rott-kryddig-mustig-bg); color: #fff; }
-.pill-rott-fyllig-mustig { background: var(--kat-rott-fyllig-mustig-bg); color: #fff; }
-.pill-amber { background: var(--kat-amber-bg); color: var(--color-text); }
-.pill-amber-morkt { background: var(--kat-amber-morkt-bg); color: #fff; }
+.pill-rott-stramt-nyanserat { background: var(--kat-rott-stramt-nyanserat-bg); color: var(--color-text); }
+.pill-rott-fruktigt-smakrikt { background: var(--kat-rott-fruktigt-smakrikt-bg); color: var(--color-text); }
+.pill-rott-kryddigt-mustigt { background: var(--kat-rott-kryddigt-mustigt-bg); color: #fff; }
+.pill-rott-sott { background: var(--kat-rott-sott-bg); color: #fff; }
 
 .wine-card {
   padding: 0;

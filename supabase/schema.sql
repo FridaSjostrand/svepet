@@ -73,12 +73,13 @@ create table public.viner (
   producent text,
   argang integer,
   kategori text not null check (kategori in (
-    'mousserande',
-    'fruktig & frisk', 'torr & fruktig', 'rund & fruktig',
-    'rosé',
-    'fruktig', 'mjukt & bärigt', 'fruktig & mustig',
-    'strävt & fruktig', 'kryddig & mustig', 'fyllig & mustig',
-    'sött', 'starkvin'
+    'mousserande - torrt', 'mousserande - halvtorrt', 'mousserande - smaksatt',
+    'mousserande - rött', 'mousserande - sött',
+    'vitt - friskt & fruktigt', 'vitt - lätt & avrundat',
+    'vitt - druvigt & blommigt', 'vitt - fylligt & smakrikt', 'vitt - sött',
+    'rosé - friskt & bärigt', 'rosé - fruktigt & smakrikt',
+    'rött - mjukt & bärigt', 'rött - stramt & nyanserat',
+    'rött - fruktigt & smakrikt', 'rött - kryddigt & mustigt', 'rött - sött'
   )),
   druva text,
   land text,

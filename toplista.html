@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Svepet – Min smakprofil</title>
+  <title>Svepet – Topplista</title>
   <link rel="icon" type="image/png" href="images/favicon-32.png" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon-180.png" />
   <meta name="apple-mobile-web-app-title" content="Svepet" />
@@ -13,7 +13,7 @@
 <body>
   <div class="page">
     <div class="corner-actions">
-      <a class="btn btn-ghost" href="toplista.html">Topplista</a>
+      <a class="btn btn-ghost" href="smakprofil.html">Min smakprofil</a>
       <button class="btn btn-ghost" id="logout-btn">Logga ut</button>
     </div>
 
@@ -24,16 +24,28 @@
 
     <a href="kvallar.html" class="back-link">&larr; Alla kvällar</a>
 
-    <div style="margin: 14px 0 24px;">
-      <h2>Min smakprofil</h2>
-      <p class="meta">Baserat på dina egna betyg — inte gruppens snitt.</p>
+    <div class="section-title" style="margin-top: 14px;">
+      <h2>Topplista</h2>
     </div>
 
-    <div id="smakprofil-root">
+    <div class="filter-chip-row" id="vy-toggle">
+      <button type="button" class="filter-chip active" id="vy-svepet">Svepets topplista</button>
+      <button type="button" class="filter-chip" id="vy-min">Min topplista</button>
+    </div>
+
+    <div class="filter-chip-row" id="farg-filter">
+      <button type="button" class="filter-chip active" data-farg="alla">Alla</button>
+      <button type="button" class="filter-chip" data-farg="mousserande">Mousserande</button>
+      <button type="button" class="filter-chip" data-farg="vitt">Vitt</button>
+      <button type="button" class="filter-chip" data-farg="rosé">Rosé</button>
+      <button type="button" class="filter-chip" data-farg="rött">Rött</button>
+    </div>
+
+    <div class="list" id="toplista-list" style="margin-top: 20px;">
       <div class="empty-state">Laddar...</div>
     </div>
   </div>
 
-  <script type="module" src="js/smakprofil.js"></script>
+  <script type="module" src="js/toplista.js"></script>
 </body>
 </html>

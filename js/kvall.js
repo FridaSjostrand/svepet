@@ -21,6 +21,69 @@ document.getElementById('toggle-new-vin').addEventListener('click', () => {
   card.style.display = card.style.display === 'none' ? 'block' : 'none';
 });
 
+// Skalar ner en bild till max 800px bredd och komprimerar den som
+// jpeg, så mobilbilder/skärmdumpar inte blir onödigt stora.
+async function komprimeraBild(fil, maxBredd = 800, kvalitet = 0.75) {
+  const bitmap = await createImageBitmap(fil);
+  const skala = Math.min(1, maxBredd / bitmap.width);
+  const bredd = Math.round(bitmap.width * skala);
+  const hojd = Math.round(bitmap.height * skala);
+
+  const canvas = document.createElement('canvas');
+  canvas.width = bredd;
+  canvas.height = hojd;
+  canvas.getContext('2d').drawImage(bitmap, 0, 0, bredd, hojd);
+
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => (blob ? resolve(blob) : reject(new Error('Kunde inte komprimera bilden.'))),
+      'image/jpeg',
+      kvalitet
+    );
+  });
+}
+
+async function laddaUppBild(fil) {
+  if (!fil.type.startsWith('image/')) {
+    throw new Error('Filen är inte en bild.');
+  }
+
+  const komprimerad = await komprimeraBild(fil);
+  const filnamn = `${user.id}/${crypto.randomUUID()}.jpg`;
+
+  const { error } = await supabase.storage.from('vinbilder').upload(filnamn, komprimerad, {
+    contentType: 'image/jpeg',
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  const { data } = supabase.storage.from('vinbilder').getPublicUrl(filnamn);
+  return data.publicUrl;
+}
+
+function wireBildForhandsvisning(filInputId, previewId) {
+  document.getElementById(filInputId).addEventListener('change', (event) => {
+    const fil = event.target.files[0];
+    const preview = document.getElementById(previewId);
+    if (fil) {
+      preview.src = URL.createObjectURL(fil);
+      preview.style.display = 'block';
+    } else {
+      preview.style.display = 'none';
+    }
+  });
+}
+
+wireBildForhandsvisning('bild_fil', 'bild-forhandsvisning');
+wireBildForhandsvisning('edit-bild_fil', 'edit-bild-forhandsvisning');
+
+function rensaBildFalt(filInputId, previewId) {
+  document.getElementById(filInputId).value = '';
+  document.getElementById(previewId).style.display = 'none';
+}
+
 document.getElementById('new-vin-form').addEventListener('submit', async (event) => {
   event.preventDefault();
   const errorEl = document.getElementById('new-vin-error');
@@ -31,6 +94,17 @@ document.getElementById('new-vin-form').addEventListener('submit', async (event)
     const raw = document.getElementById(id).value;
     return raw === '' ? null : Number(raw);
   };
+
+  let bild_url = textVal('bild_url');
+  const bildFil = document.getElementById('bild_fil').files[0];
+  if (bildFil) {
+    try {
+      bild_url = await laddaUppBild(bildFil);
+    } catch (err) {
+      errorEl.textContent = 'Kunde inte ladda upp bilden. Försök igen.';
+      return;
+    }
+  }
 
   const payload = {
     kvall_id: kvallId,
@@ -44,7 +118,7 @@ document.getElementById('new-vin-form').addEventListener('submit', async (event)
     pris: numVal('pris'),
     alkohol_procent: numVal('alkohol_procent'),
     volym_ml: numVal('volym_ml'),
-    bild_url: textVal('bild_url'),
+    bild_url,
     systembolaget_lank: textVal('systembolaget_lank'),
     beskrivning: textVal('vin-beskrivning'),
   };
@@ -57,6 +131,7 @@ document.getElementById('new-vin-form').addEventListener('submit', async (event)
   }
 
   document.getElementById('new-vin-form').reset();
+  rensaBildFalt('bild_fil', 'bild-forhandsvisning');
   document.getElementById('new-vin-card').style.display = 'none';
   await loadViner();
 });
@@ -78,6 +153,7 @@ function openEditVinForm(vin) {
   document.getElementById('edit-systembolaget_lank').value = vin.systembolaget_lank || '';
   document.getElementById('edit-vin-beskrivning').value = vin.beskrivning || '';
   document.getElementById('edit-vin-error').textContent = '';
+  rensaBildFalt('edit-bild_fil', 'edit-bild-forhandsvisning');
 
   const card = document.getElementById('edit-vin-card');
   card.style.display = 'block';
@@ -86,6 +162,7 @@ function openEditVinForm(vin) {
 
 document.getElementById('cancel-edit-vin').addEventListener('click', () => {
   document.getElementById('edit-vin-card').style.display = 'none';
+  rensaBildFalt('edit-bild_fil', 'edit-bild-forhandsvisning');
   editingVinId = null;
 });
 
@@ -100,6 +177,17 @@ document.getElementById('edit-vin-form').addEventListener('submit', async (event
     return raw === '' ? null : Number(raw);
   };
 
+  let bild_url = textVal('edit-bild_url');
+  const bildFil = document.getElementById('edit-bild_fil').files[0];
+  if (bildFil) {
+    try {
+      bild_url = await laddaUppBild(bildFil);
+    } catch (err) {
+      errorEl.textContent = 'Kunde inte ladda upp bilden. Försök igen.';
+      return;
+    }
+  }
+
   const payload = {
     namn: document.getElementById('edit-namn').value.trim(),
     argang: numVal('edit-argang'),
@@ -110,7 +198,7 @@ document.getElementById('edit-vin-form').addEventListener('submit', async (event
     pris: numVal('edit-pris'),
     alkohol_procent: numVal('edit-alkohol_procent'),
     volym_ml: numVal('edit-volym_ml'),
-    bild_url: textVal('edit-bild_url'),
+    bild_url,
     systembolaget_lank: textVal('edit-systembolaget_lank'),
     beskrivning: textVal('edit-vin-beskrivning'),
   };
@@ -123,6 +211,7 @@ document.getElementById('edit-vin-form').addEventListener('submit', async (event
   }
 
   document.getElementById('edit-vin-card').style.display = 'none';
+  rensaBildFalt('edit-bild_fil', 'edit-bild-forhandsvisning');
   editingVinId = null;
   await loadViner();
 });

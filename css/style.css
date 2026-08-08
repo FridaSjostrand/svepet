@@ -337,6 +337,15 @@ textarea {
   min-height: 70px;
 }
 
+.bild-forhandsvisning {
+  display: block;
+  max-width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+  margin-top: 8px;
+  border-radius: var(--radius-sm);
+}
+
 /* Grupperingsregel för formulärfält: korta fält (nummer, kort text,
    datum) ska alltid radas ihop med .field-row (2 kolumner) eller
    .field-row-3 (3 kolumner) — aldrig stå ensamma i full bredd.
@@ -775,10 +784,14 @@ textarea {
     grid-template-columns: auto 1fr;
   }
 
+  /* På mobil ska knapparna inte flyta fast ovanpå innehållet (det
+     täckte loggan och följde med vid scroll) — de ligger istället i
+     det vanliga dokumentflödet, ovanför resten av sidan. */
   .corner-actions {
-    top: 10px;
-    right: 10px;
+    position: static;
+    justify-content: flex-end;
     gap: 6px;
+    margin-bottom: 16px;
   }
 
   .corner-actions .btn {

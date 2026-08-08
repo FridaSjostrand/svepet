@@ -20,6 +20,14 @@
 --                       Säg till om du vill ha en egen Starkvin-
 --                       kategori tillbaka.)
 
+-- 1. Droppa den gamla regeln FÖRST, annars stoppar den uppdateringen
+--    nedan eftersom de nya kategorinamnen inte finns i den gamla
+--    listan den tillåter.
+alter table public.viner drop constraint viner_kategori_check;
+
+-- 2. Mappa om befintliga viner till närmaste nya kategori. Nu när
+--    ingen regel är aktiv kan värdena tillfälligt vara "vad som helst"
+--    utan att uppdateringen stoppas.
 update public.viner set kategori = 'mousserande - torrt' where kategori = 'mousserande';
 update public.viner set kategori = 'vitt - friskt & fruktigt' where kategori = 'fruktig & frisk';
 update public.viner set kategori = 'vitt - lätt & avrundat' where kategori = 'torr & fruktig';
@@ -34,7 +42,8 @@ update public.viner set kategori = 'rött - kryddigt & mustigt' where kategori =
 update public.viner set kategori = 'vitt - sött' where kategori = 'sött';
 update public.viner set kategori = 'rött - sött' where kategori = 'starkvin';
 
-alter table public.viner drop constraint viner_kategori_check;
+-- 3. Lägg på den nya, striktare regeln — nu när all data redan
+--    matchar den nya listan går det igenom utan problem.
 alter table public.viner add constraint viner_kategori_check check (kategori in (
   'mousserande - torrt', 'mousserande - halvtorrt', 'mousserande - smaksatt',
   'mousserande - rött', 'mousserande - sött',
